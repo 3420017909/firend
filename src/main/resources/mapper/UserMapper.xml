@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.friend.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="org.example.friend.POjO.entity.User">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="username" column="username" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="profile" column="profile" jdbcType="VARCHAR"/>
+            <result property="gender" column="gender" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="role" column="role" jdbcType="INTEGER"/>
+            <result property="tage" column="tage" jdbcType="VARCHAR"/>
+        <result property="isDelete" column="is_delete" jdbcType="TINYINT"/>
+    </resultMap>
+
+
+    <update id="updateUser" parameterType="org.example.friend.POjO.entity.User">
+        UPDATE user
+        <set>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="username != null">username = #{username},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="profile != null">profile = #{profile},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="role != null">role = #{role},</if>
+            <if test="tage != null">tage = #{tage},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="id != null">id = #{id},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+
+    <select id="selectUserByTage" resultType="org.example.friend.POjO.entity.User">
+        select id,phone,username,profile,gender,status,role,tage
+        from user
+        where json_contains(tage, json_array(
+                                  <foreach collection="tage" item="tages" separator=",">
+                                      #{tages}
+                                  </foreach>
+                                  ))
+
+    </select>
+</mapper>

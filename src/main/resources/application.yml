@@ -1,0 +1,44 @@
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/friend?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true&useLegacyDatetimeCode=false
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+  data:
+    redis:
+      host: 192.168.220.128
+      port: 6379
+      password: root
+      # Lettuce 客户端的配置
+      lettuce:
+        # 连接池配置
+        pool:
+          # 最小空闲连接
+          min-idle: 0
+          # 最大空闲连接
+          max-idle: 8
+          # 最大活跃连接
+          max-active: 8
+          # 从连接池获取连接 最大超时时间，小于等于0则表示不会超时
+          max-wait: -1ms
+  rabbitmq:
+    host: 192.168.220.128
+    port: 5672
+    username: root
+    password: root
+
+
+server:
+  port: 8080
+
+knife4j:
+  enable: true
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+

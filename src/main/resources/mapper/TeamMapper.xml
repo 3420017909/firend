@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.friend.mapper.TeamMapper">
+
+    <resultMap id="BaseResultMap" type="org.example.friend.POjO.entity.Team">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="coverImage" column="cover_image" jdbcType="VARCHAR"/>
+            <result property="maxNum" column="max_num" jdbcType="INTEGER"/>
+            <result property="expireTime" column="expire_time" jdbcType="TIMESTAMP"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="isDelete" column="is_delete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,description,
+        cover_image,max_num,expire_time,
+        user_id,status,password,
+        create_time,update_time,is_delete
+    </sql>
+    <insert id="addTeam">
+       insert into team ( name, description, cover_image, max_num, expire_time, user_id, status, password, create_time, update_time, is_delete)
+       values (#{name},#{description},#{coverImage},#{maxNum},#{expireTime},#{userId},#{status},#{password},#{createTime},#{updateTime},#{isDelete})
+    </insert>
+
+    <update id="updateTeam">
+        update team
+        <set>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="description != null">
+                description=#{description},
+            </if>
+            <if test="coverImage != null">
+                cover_image=#{coverImage},
+            </if>
+            <if test="maxNum != null">
+                max_num=#{maxNum},
+            </if>
+            <if test="expireTime != null">
+                expire_time=#{expireTime},
+            </if>
+            <if test="userId != null">
+                user_id=#{userId},
+            </if>
+            <if test="status != null">
+                status=#{status},
+            </if>
+            <if test="password != null">
+                password=#{password},
+            </if>
+            <if test="updateTime != null">
+                update_time=#{updateTime},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+</mapper>
